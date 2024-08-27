@@ -268,13 +268,23 @@ public class ChartController {
         String name = genChatByAiRequest.getName();
         String goal = genChatByAiRequest.getGoal();
         String chartType = genChatByAiRequest.getChartType();
-
-        //校验
-        ThrowUtils.throwIf(StringUtils.isBlank(goal),ErrorCode.PARAMS_ERROR,"目标参数为空");
-        ThrowUtils.throwIf(StringUtils.isBlank(name) && name.length()>100,ErrorCode.PARAMS_ERROR,"名称过长");
+        // 校验
+        ThrowUtils.throwIf(StringUtils.isBlank(goal), ErrorCode.PARAMS_ERROR, "目标为空");
+        ThrowUtils.throwIf(StringUtils.isNotBlank(name) && name.length() > 100, ErrorCode.PARAMS_ERROR, "名称过长");
+        // 校验文件
+        long size = multipartFile.getSize();
+        String originalFilename = multipartFile.getOriginalFilename();
+        // 校验文件大小
+        final long ONE_MB = 1024 * 1024L;
+        ThrowUtils.throwIf(size > ONE_MB, ErrorCode.PARAMS_ERROR, "文件超过 1M");
+        // 校验文件后缀 aaa.png
+        String suffix = FileUtil.getSuffix(originalFilename);
+        final List<String> validFileSuffixList = Arrays.asList("xlsx");
+        ThrowUtils.throwIf(!validFileSuffixList.contains(suffix), ErrorCode.PARAMS_ERROR, "文件后缀非法");
 
         User loginUser = userService.getLoginUser(request);
-
+        // 限流判断，每个用户一个限流器
+        // redisLimiterManager.doRateLimit("genChartByAi_" + loginUser.getId());
         // 无需写 prompt，直接调用现有模型，https://www.yucongming.com，公众号搜【鱼聪明AI】
 //        final String prompt = "你是一个数据分析师和前端开发专家，接下来我会按照以下固定格式给你提供内容：\n" +
 //                "分析需求：\n" +
@@ -286,7 +296,7 @@ public class ChartController {
 //                "{前端 Echarts V5 的 option 配置对象js代码，合理地将数据进行可视化，不要生成任何多余的内容，比如注释}\n" +
 //                "【【【【【\n" +
 //                "{明确的数据分析结论、越详细越好，不要生成多余的注释}";
-        long biModelId = 1651468516836098050L;
+        long biModelId = CommonConstant.BI_MODEL_ID;
         // 分析需求：
         // 分析网站用户的增长情况
         // 原始数据：
@@ -299,9 +309,9 @@ public class ChartController {
         StringBuilder userInput = new StringBuilder();
         userInput.append("分析需求：").append("\n");
 
-        //拼接分析目标
+        // 拼接分析目标
         String userGoal = goal;
-        if(StringUtils.isNotBlank(chartType)){
+        if (StringUtils.isNotBlank(chartType)) {
             userGoal += "，请使用" + chartType;
         }
         userInput.append(userGoal).append("\n");
@@ -312,28 +322,26 @@ public class ChartController {
 
         String result = aiManager.doChat(biModelId, userInput.toString());
         String[] splits = result.split("【【【【【");
-        ThrowUtils.throwIf(splits.length < 3,ErrorCode.SYSTEM_ERROR, "AI 生成错误");
-
+        if (splits.length < 3) {
+            throw new BusinessException(ErrorCode.SYSTEM_ERROR, "AI 生成错误");
+        }
         String genChart = splits[1].trim();
         String genResult = splits[2].trim();
-
-        // 插入数据库
+        // 插入到数据库
         Chart chart = new Chart();
-        chart.setGoal(goal);
         chart.setName(name);
+        chart.setGoal(goal);
         chart.setChartData(csvData);
         chart.setChartType(chartType);
         chart.setGenChart(genChart);
         chart.setGenResult(genResult);
         chart.setUserId(loginUser.getId());
-        boolean save = chartService.save(chart);
-        ThrowUtils.throwIf(!save,ErrorCode.SYSTEM_ERROR,"图表保存失败");
-
+        boolean saveResult = chartService.save(chart);
+        ThrowUtils.throwIf(!saveResult, ErrorCode.SYSTEM_ERROR, "图表保存失败");
         BiResponse biResponse = new BiResponse();
         biResponse.setGenChart(genChart);
         biResponse.setGenResult(genResult);
         biResponse.setChartId(chart.getId());
-
         return ResultUtils.success(biResponse);
     }
 
