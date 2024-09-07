@@ -10,7 +10,7 @@ import java.io.Serializable;
  * @description:
  */
 @Data
-public class GenChatByAiRequest implements Serializable {
+public class GenChartByAiRequest implements Serializable {
   /**
    * 名称
    */
