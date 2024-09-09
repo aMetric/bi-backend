@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class SingleProducer {
 
-    private final static String QUEUE_NAME = "BI-hello";
+    private final static String QUEUE_NAME = "hello";
 
     public static void main(String[] argv) throws Exception {
         ConnectionFactory factory = new ConnectionFactory();
