@@ -18,9 +18,9 @@ public class UserServiceTest {
 
     @Test
     void userRegister() {
-        String userAccount = "yupi";
-        String userPassword = "";
-        String checkPassword = "123456";
+        String userAccount = "coderwhs";
+        String userPassword = "coderwhs";
+        String checkPassword = "coderwhs";
         try {
             long result = userService.userRegister(userAccount, userPassword, checkPassword);
             Assertions.assertEquals(-1, result);
