@@ -4,8 +4,8 @@ spring:
   # 数据库配置
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://117.72.86.124:3306/db_bi
-    username: root
+    url: jdbc:mysql://117.72.86.124:3306/db_bi?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+    username: bi_root
     password: XRGyR7ZcnksykxXK
   # Redis 配置
   redis:
@@ -19,3 +19,22 @@ spring:
     uris: http://117.72.86.124:9200
     username: root
     password: 123456
+# 接口文档配置
+knife4j:
+  # 开启增强配置
+  enable: true
+  # 标识是否生产环境：true-生产环境关闭文档，false-显示文档
+  production: false
+  openapi:
+    title: "接口文档"
+    version: 1.0
+    group:
+      default:
+        api-rule: package
+        api-rule-resources:
+          - com.coderwhs.interview.controller
+#鱼聪明
+yuapi:
+  client:
+    access-key: sv2ye2cdth48cn15b30e7viqlk2fv4sc
+    secret-key: e6peks91zsdzkm302dv5qh71irhu70ai
