@@ -2,8 +2,6 @@ package com.coderwhs.bi.constant;
 
 /**
  * 通用常量
- *
-
  */
 public interface CommonConstant {
 

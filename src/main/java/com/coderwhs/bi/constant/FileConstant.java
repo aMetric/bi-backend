@@ -2,8 +2,6 @@ package com.coderwhs.bi.constant;
 
 /**
  * 文件常量
- *
-
  */
 public interface FileConstant {
 

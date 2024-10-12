@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * 主类（项目启动入口）
- *
  */
 @SpringBootApplication(exclude = {RedisAutoConfiguration.class})
 @MapperScan("com.coderwhs.bi.mapper")

@@ -2,8 +2,6 @@ package com.coderwhs.bi.constant;
 
 /**
  * 用户常量
- *
-
  */
 public interface UserConstant {
 

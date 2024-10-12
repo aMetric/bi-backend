@@ -2,8 +2,6 @@ package com.coderwhs.bi.common;
 
 /**
  * 自定义错误码
- *
-
  */
 public enum ErrorCode {
 

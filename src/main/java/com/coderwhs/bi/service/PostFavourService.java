@@ -10,8 +10,6 @@ import com.coderwhs.bi.model.entity.PostFavour;
 
 /**
  * 帖子收藏服务
- *
-
  */
 public interface PostFavourService extends IService<PostFavour> {
 

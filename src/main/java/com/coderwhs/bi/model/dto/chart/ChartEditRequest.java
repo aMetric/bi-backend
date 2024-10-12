@@ -11,8 +11,6 @@ import java.util.List;
 
 /**
  * 编辑请求
- *
-
  */
 @Data
 public class ChartEditRequest implements Serializable {

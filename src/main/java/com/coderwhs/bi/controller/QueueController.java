@@ -15,7 +15,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 队列测试controller
- *
  */
 @RestController
 @RequestMapping("/queue")

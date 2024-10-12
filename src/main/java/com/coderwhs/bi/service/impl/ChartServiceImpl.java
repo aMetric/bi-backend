@@ -7,7 +7,6 @@ import com.coderwhs.bi.service.ChartService;
 import org.springframework.stereotype.Service;
 
 /**
- *
  */
 @Service
 public class ChartServiceImpl extends ServiceImpl<ChartMapper, Chart>

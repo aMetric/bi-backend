@@ -42,7 +42,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * 帖子接口
- *
  */
 @RestController
 @RequestMapping("/chart")
