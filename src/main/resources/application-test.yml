@@ -1,5 +1,5 @@
 server:
-  port: 14661
+  port: 8101
 spring:
   # 数据库配置
   datasource:

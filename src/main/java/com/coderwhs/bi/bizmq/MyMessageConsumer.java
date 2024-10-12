@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @Date 2024/9/13 21:35
  * @description:
  */
-@Component
+// @Component
 @Slf4j
 public class MyMessageConsumer {
 

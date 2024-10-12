@@ -10,7 +10,7 @@ import javax.annotation.Resource;
  * @Date 2024/9/13 21:30
  * @description:
  */
-@Component
+// @Component
 public class MyMessageProducer {
 
   @Resource
