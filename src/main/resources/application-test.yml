@@ -24,3 +24,10 @@ spring:
     uris: http://localhost:9200
     username: root
     password: 123456
+## 讯飞 AI 配置
+xun-fei:
+  client:
+    appId: a94b926b
+    apiSecret: MDRmNzQwYmI1NzE3YWVjMjkwODFiMjIw
+    apiKey: 8610b7d29268c44207604ba0517b93e7
+

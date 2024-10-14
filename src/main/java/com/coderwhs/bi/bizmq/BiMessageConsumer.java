@@ -1,14 +1,13 @@
 package com.coderwhs.bi.bizmq;
 
 import com.coderwhs.bi.common.ErrorCode;
-import com.coderwhs.bi.constant.CommonConstant;
+import com.coderwhs.bi.constant.BiMqConstant;
 import com.coderwhs.bi.exception.BusinessException;
 import com.coderwhs.bi.exception.ThrowUtils;
-import com.coderwhs.bi.manager.AiManager;
+import com.coderwhs.bi.manager.AI2Manager;
 import com.coderwhs.bi.model.entity.Chart;
-import com.rabbitmq.client.Channel;
-import com.coderwhs.bi.constant.BiMqConstant;
 import com.coderwhs.bi.service.ChartService;
+import com.rabbitmq.client.Channel;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
@@ -25,15 +24,18 @@ import javax.annotation.Resource;
  * @Date 2024/9/13 21:35
  * @description:
  */
-@Component
+// @Component
 @Slf4j
 public class BiMessageConsumer {
 
   @Resource
   private ChartService chartService;
 
+  // @Resource
+  // private AiManager aiManager;
+
   @Resource
-  private AiManager aiManager;
+  private AI2Manager aiManager;
 
   @SneakyThrows
   @RabbitListener(queues = {BiMqConstant.BI_QUEUE_NAME},ackMode = "MANUAL")
@@ -62,7 +64,7 @@ public class BiMessageConsumer {
       return;
     }
 
-    String result = aiManager.doChat(CommonConstant.BI_MODEL_ID, buildUserInput(chart));
+    String result = aiManager.sendMsgToXingHuo(true, buildUserInput(chart));
     String[] splits = result.split("#########");
     if (splits.length < 3) {
       channel.basicNack(deliveryTag,false,false);

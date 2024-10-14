@@ -13,7 +13,7 @@ import com.coderwhs.bi.constant.CommonConstant;
 import com.coderwhs.bi.constant.UserConstant;
 import com.coderwhs.bi.exception.BusinessException;
 import com.coderwhs.bi.exception.ThrowUtils;
-import com.coderwhs.bi.manager.AiManager;
+import com.coderwhs.bi.manager.AI2Manager;
 import com.coderwhs.bi.model.dto.chart.*;
 import com.coderwhs.bi.model.entity.Chart;
 import com.coderwhs.bi.model.entity.User;
@@ -54,8 +54,11 @@ public class ChartController {
     @Resource
     private UserService userService;
 
+    // @Resource
+    // private AiManager aiManager;
+
     @Resource
-    private AiManager aiManager;
+    private AI2Manager aiManager;
 
     @Resource
     private RedisLimiterManager redisLimiterManager;
@@ -297,7 +300,7 @@ public class ChartController {
         String csvData = ExcelUtils.excelToCsv(multipartFile);
         userInput.append(csvData).append("\n");
 
-        String result = aiManager.doChat(biModelId, userInput.toString());
+        String result = aiManager.sendMsgToXingHuo(true, userInput.toString());
         String[] splits = result.split("#########");
         ThrowUtils.throwIf(splits.length < 3,ErrorCode.SYSTEM_ERROR, "AI 生成错误");
 
@@ -357,7 +360,6 @@ public class ChartController {
 
         // 限流判断，每个用户一个限流器
         redisLimiterManager.doRateLimit("genChartByAi_" + loginUser.getId());
-        long biModelId = CommonConstant.BI_MODEL_ID;
 
         // 构造用户输入
         StringBuilder userInput = new StringBuilder();
@@ -397,7 +399,7 @@ public class ChartController {
                 return;
             }
 
-            String result = aiManager.doChat(biModelId, userInput.toString());
+            String result = aiManager.sendMsgToXingHuo(true, userInput.toString());
             String[] splits = result.split("#########");
             if (splits.length < 3) {
                 handleChartUpdateError(chart.getId(), "AI 生成错误");
