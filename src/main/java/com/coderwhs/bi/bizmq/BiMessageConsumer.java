@@ -24,15 +24,12 @@ import javax.annotation.Resource;
  * @Date 2024/9/13 21:35
  * @description:
  */
-// @Component
+@Component
 @Slf4j
 public class BiMessageConsumer {
 
   @Resource
   private ChartService chartService;
-
-  // @Resource
-  // private AiManager aiManager;
 
   @Resource
   private AI2Manager aiManager;

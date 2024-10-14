@@ -456,7 +456,6 @@ public class ChartController {
 
         // 限流判断，每个用户一个限流器
         redisLimiterManager.doRateLimit("genChartByAi_" + loginUser.getId());
-        long biModelId = CommonConstant.BI_MODEL_ID;
 
         // 构造用户输入
         StringBuilder userInput = new StringBuilder();
