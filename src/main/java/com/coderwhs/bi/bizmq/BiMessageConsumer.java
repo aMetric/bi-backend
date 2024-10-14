@@ -65,7 +65,7 @@ public class BiMessageConsumer {
     }
 
     String result = aiManager.sendMsgToXingHuo(true, buildUserInput(chart));
-    String[] splits = result.split("#########");
+    String[] splits = result.replace("'","").split("#########");
     if (splits.length < 3) {
       channel.basicNack(deliveryTag,false,false);
       handleChartUpdateError(chart.getId(), "AI 生成错误");

@@ -28,10 +28,4 @@ public class MyBatisPlusConfig {
         return interceptor;
     }
 
-    @Bean
-    public ConfigurationCustomizer configurationCustomizer() {
-        return configuration -> {
-            configuration.addInterceptor(new SqlInterceptor());
-        };
-    }
 }

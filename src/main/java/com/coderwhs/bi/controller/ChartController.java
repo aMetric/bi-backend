@@ -301,7 +301,7 @@ public class ChartController {
         userInput.append(csvData).append("\n");
 
         String result = aiManager.sendMsgToXingHuo(true, userInput.toString());
-        String[] splits = result.split("#########");
+        String[] splits = result.replace("'","").split("#########");
         ThrowUtils.throwIf(splits.length < 3,ErrorCode.SYSTEM_ERROR, "AI 生成错误");
 
         String genChart = splits[1].trim();
@@ -400,7 +400,7 @@ public class ChartController {
             }
 
             String result = aiManager.sendMsgToXingHuo(true, userInput.toString());
-            String[] splits = result.split("#########");
+            String[] splits = result.replace("'","").split("#########");
             if (splits.length < 3) {
                 handleChartUpdateError(chart.getId(), "AI 生成错误");
                 return;

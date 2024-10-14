@@ -77,12 +77,12 @@ public class AI2Manager {
                     "{数据分析的需求或者目标}\n" +
                     "原始数据：\n" +
                     "{csv格式的原始数据，用,作为分隔符}\n" +
-                    "请根据这两部分内容，严格按照以下指定格式生成内容（此外不要输出任何多余的开头、结尾、注释）\n" +
+                    "请根据这两部分内容，严格按照以下指定格式生成内容（此外不要输出任何多余的开头、结尾、注释，如果最后生成的内容中包含单引号，一定要将单引号替换成空格）\n" +
                     "'#########'\n" +
                     "{前端 Echarts V5 的 option 配置对象json代码，json代码的键值对都一定要加上英文双引号，跟下面的示例一样。合理地将数据进行可视化，不要生成任何多余的内容，比如注释}\n" +
                     "'#########'\n" +
                     "{明确的数据分析结论、越详细越好，不要生成多余的注释} \n"
-                    + "下面是一个具体的例子的模板："
+                    + "下面是一个具体的例子的模板(严格注意：这个例子只包含三部分内容，如果最后生成的内容中包含单引号，一定要将单引号替换成空格)："
                     + "#########\n"
                     + jsonData
                     + "#########\n" +
@@ -107,7 +107,9 @@ public class AI2Manager {
         // 同步调用
         SparkSyncChatResponse chatResponse = sparkClient.chatSync(sparkRequest);
         String responseContent = chatResponse.getContent();
-        log.info("星火 AI 返回的结果： {}", responseContent);
+        log.info("星火 AI 返回的结果：-----------------------start----------------------------------");
+        log.info(responseContent.replace("'",""));
+        log.info("星火 AI 返回的结果：------------------------end-----------------------------------");
         return responseContent;
     }
 }
