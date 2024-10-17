@@ -69,7 +69,9 @@ public class BiMessageConsumer {
       return;
     }
     String genChart = splits[1].trim();
+    System.out.println("【BiMessageConsumer】genChart = " + genChart);
     String genResult = splits[2].trim();
+    System.out.println("【BiMessageConsumer】genResult = " + genResult);
 
     Chart updateChartResult = new Chart();
     updateChartResult.setId(chart.getId());
