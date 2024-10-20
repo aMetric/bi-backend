@@ -39,3 +39,8 @@ xun-fei:
     appId: a94b926b
     apiSecret: MDRmNzQwYmI1NzE3YWVjMjkwODFiMjIw
     apiKey: 8610b7d29268c44207604ba0517b93e7
+ssl:
+  key-alias: bi.coderwhs.com
+  key-store-password: fo200sixm5ol
+  key-store-type: PKCS12
+  key-store: classpath:bi.coderwhs.com.pfx

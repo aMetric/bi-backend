@@ -11,6 +11,22 @@
     {
       "name": "xun-fei.client.apiKey",
       "type": "java.lang.String"
+    },
+    {
+      "name": "ssl.key-alias",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "ssl.key-store-password",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "ssl.key-store-type",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "ssl.key-store",
+      "type": "java.lang.String"
     }
   ]
 }
