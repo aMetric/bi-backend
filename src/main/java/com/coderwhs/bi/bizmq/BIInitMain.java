@@ -5,6 +5,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import com.coderwhs.bi.constant.BiMqConstant;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -16,15 +17,24 @@ import javax.annotation.PostConstruct;
 @Slf4j
 public class BIInitMain {
 
+    @Value("${spring.rabbitmq.host}")
+    private String rabbitmqUrl;
+
+    @Value("${spring.rabbitmq.username}")
+    private String username;
+
+    @Value("${spring.rabbitmq.password}")
+    private String password;
+
     @PostConstruct
     public void mqInit() throws Exception {
         try {
             log.debug("------------------【BIInitMain】开始队列初始化");
             // 创建连接工厂
             ConnectionFactory factory = new ConnectionFactory();
-            factory.setUsername("coderwhs");
-            factory.setPassword("@waiseng1204");
-            factory.setHost("117.72.86.124");
+            factory.setUsername(username);
+            factory.setPassword(password);
+            factory.setHost(rabbitmqUrl);
             // 创建连接
             Connection connection = factory.newConnection();
             // 创建通道
