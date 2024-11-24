@@ -284,7 +284,7 @@ public class ChartController {
         //拼接分析目标
         String userGoal = goal;
         if(StringUtils.isNotBlank(chartType)){
-            userGoal += "，请使用" + chartType;
+            userGoal += "，请对以下原始数据进行分析，使用" + chartType + "进行表示";
         }
         userInput.append(userGoal).append("\n");
         userInput.append("原始数据：").append("\n");
@@ -360,7 +360,7 @@ public class ChartController {
         // 拼接分析目标
         String userGoal = goal;
         if (StringUtils.isNotBlank(chartType)) {
-            userGoal += "，请使用" + chartType;
+            userGoal += "，请对以下原始数据进行分析，使用" + chartType + "进行表示";
         }
         userInput.append(userGoal).append("\n");
         userInput.append("原始数据：").append("\n");
@@ -456,7 +456,7 @@ public class ChartController {
         // 拼接分析目标
         String userGoal = goal;
         if (StringUtils.isNotBlank(chartType)) {
-            userGoal += "，请使用" + chartType;
+            userGoal += "，请对以下原始数据进行分析，使用" + chartType + "进行表示";
         }
         userInput.append(userGoal).append("\n");
         userInput.append("原始数据：").append("\n");

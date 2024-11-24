@@ -1,5 +1,9 @@
 server:
   port: 8101
+#  ssl:
+#    key-store: classpath:bi.coderwhs.com.jks
+#    key-store-type: JKS
+#    key-store-password: o89ln628ru032s4
 spring:
   # 数据库配置
   datasource:

@@ -76,8 +76,9 @@ cos:
     secretKey: xxx
     region: xxx
     bucket: xxx
-#鱼聪明
-yuapi:
+## 讯飞 AI 配置
+xun-fei:
   client:
-    access-key: sv2ye2cdth48cn15b30e7viqlk2fv4sc
-    secret-key: e6peks91zsdzkm302dv5qh71irhu70ai
+    appId: a94b926b
+    apiSecret: MDRmNzQwYmI1NzE3YWVjMjkwODFiMjIw
+    apiKey: 8610b7d29268c44207604ba0517b93e7
