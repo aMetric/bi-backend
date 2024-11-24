@@ -14,7 +14,7 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class AI2Manager {
+public class AIManager {
 
     @Resource
     private SparkClient sparkClient;

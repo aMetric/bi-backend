@@ -4,7 +4,7 @@ import com.coderwhs.bi.common.ErrorCode;
 import com.coderwhs.bi.constant.BiMqConstant;
 import com.coderwhs.bi.exception.BusinessException;
 import com.coderwhs.bi.exception.ThrowUtils;
-import com.coderwhs.bi.manager.AI2Manager;
+import com.coderwhs.bi.manager.AIManager;
 import com.coderwhs.bi.model.entity.Chart;
 import com.coderwhs.bi.service.ChartService;
 import com.rabbitmq.client.Channel;
@@ -32,8 +32,15 @@ public class BiMessageConsumer {
   private ChartService chartService;
 
   @Resource
-  private AI2Manager aiManager;
+  private AIManager aiManager;
 
+
+  /**
+   * ackMode:消息确认的处理模式。使用 "MANUAL" 意味着监听器将完全控制消息的确认
+   * @param message
+   * @param channel
+   * @param deliveryTag
+   */
   @SneakyThrows
   @RabbitListener(queues = {BiMqConstant.BI_QUEUE_NAME},ackMode = "MANUAL")
   public void receiveMsg(String message, Channel channel, @Header(AmqpHeaders.DELIVERY_TAG) long deliveryTag){

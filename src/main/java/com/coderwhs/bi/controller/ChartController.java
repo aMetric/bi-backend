@@ -13,7 +13,7 @@ import com.coderwhs.bi.constant.CommonConstant;
 import com.coderwhs.bi.constant.UserConstant;
 import com.coderwhs.bi.exception.BusinessException;
 import com.coderwhs.bi.exception.ThrowUtils;
-import com.coderwhs.bi.manager.AI2Manager;
+import com.coderwhs.bi.manager.AIManager;
 import com.coderwhs.bi.model.dto.chart.*;
 import com.coderwhs.bi.model.entity.Chart;
 import com.coderwhs.bi.model.entity.User;
@@ -25,7 +25,6 @@ import com.coderwhs.bi.utils.ExcelUtils;
 import com.coderwhs.bi.utils.SqlUtils;
 import com.google.gson.Gson;
 import com.coderwhs.bi.manager.RedisLimiterManager;
-import com.coderwhs.bi.model.dto.chart.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -54,11 +53,8 @@ public class ChartController {
     @Resource
     private UserService userService;
 
-    // @Resource
-    // private AiManager aiManager;
-
     @Resource
-    private AI2Manager aiManager;
+    private AIManager aiManager;
 
     @Resource
     private RedisLimiterManager redisLimiterManager;
@@ -68,9 +64,6 @@ public class ChartController {
 
     @Resource
     private BiMessageProducer biMessageProducer;
-
-
-    private final static Gson GSON = new Gson();
 
     // region 增删改查
 
@@ -283,7 +276,6 @@ public class ChartController {
         ThrowUtils.throwIf(StringUtils.isBlank(name) && name.length()>100,ErrorCode.PARAMS_ERROR,"名称过长");
 
         User loginUser = userService.getLoginUser(request);
-        long biModelId = CommonConstant.BI_MODEL_ID;
 
         // 构造用户输入
         StringBuilder userInput = new StringBuilder();

@@ -13,7 +13,7 @@ import javax.annotation.Resource;
 
 
 /**
- * 专门提供 RedisLimiter 限流基础服务的（提供了通用的能力,放其他项目都能用）
+ * 专门提供 RedisLimiter 限流基础服务
  * @author whs
  */
 @Service
