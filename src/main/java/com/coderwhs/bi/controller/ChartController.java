@@ -296,7 +296,7 @@ public class ChartController {
         String[] splits = result.replace("'","").split("#########");
         ThrowUtils.throwIf(splits.length < 3,ErrorCode.SYSTEM_ERROR, "AI 生成错误");
 
-        String genChart = splits[1].trim();
+        String genChart = splits[1].trim().replace("```json","").replace("```","");
         String genResult = splits[2].trim();
 
         // 插入数据库
@@ -397,7 +397,7 @@ public class ChartController {
                 handleChartUpdateError(chart.getId(), "AI 生成错误");
                 return;
             }
-            String genChart = splits[1].trim();
+            String genChart = splits[1].trim().replace("```json","").replace("```","");
             String genResult = splits[2].trim();
 
             Chart updateChartResult = new Chart();

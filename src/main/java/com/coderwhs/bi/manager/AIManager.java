@@ -19,6 +19,49 @@ public class AIManager {
     @Resource
     private SparkClient sparkClient;
 
+    //雷达图格式
+    String radarChart = "{\n" +
+      "\"title\": {\n" +
+      "\"text\": \"网站用户增长情况\",\n" +
+      "\"subtext\": \"\"\n" +
+      "},\n" +
+      "\"tooltip\": {\n" +
+      "\"trigger\": \"axis\",\n" +
+      "\"axisPointer\": {\n" +
+      "\"type\": \"shadow\"\n" +
+      "}\n" +
+      "},\n" +
+      "\"legend\": {\n" +
+      "\"data\": [\"用户数\"]\n" +
+      "},\n" +
+      "\"radar\": {\n" +
+      "\"indicator\": [\n" +
+      "{ \"name\": \"1号\", \"max\": 10 },\n" +
+      "{ \"name\": \"2号\", \"max\": 20 },\n" +
+      "{ \"name\": \"3号\", \"max\": 30 },\n" +
+      "{ \"name\": \"4号\", \"max\": 5 },\n" +
+      "{ \"name\": \"5号\", \"max\": 100 },\n" +
+      "{ \"name\": \"6号\", \"max\": 600 },\n" +
+      "{ \"name\": \"7号\", \"max\": 60 },\n" +
+      "{ \"name\": \"8号\", \"max\": 11 },\n" +
+      "{ \"name\": \"9号\", \"max\": 60 },\n" +
+      "{ \"name\": \"10号\", \"max\": 200 },\n" +
+      "{ \"name\": \"11号\", \"max\": 0 },\n" +
+      "{ \"name\": \"12号\", \"max\": 50 },\n" +
+      "{ \"name\": \"13号\", \"max\": 1000 },\n" +
+      "{ \"name\": \"14号\", \"max\": 0 },\n" +
+      "{ \"name\": \"15号\", \"max\": 100 }\n" +
+      "]\n" +
+      "},\n" +
+      "\"series\": [{\n" +
+      "\"name\": \"用户数\",\n" +
+      "\"type\": \"radar\",\n" +
+      "\"data\": [\n" +
+      "{ \"value\": [10, 20, 30, 5, 100, 600, 60, 11, 60, 200, 0, 50, 1000, 0, 100], \"name\": \"用户数\" }\n" +
+      "]\n" +
+      "}]\n" +
+      "}";
+
     String jsonData = "{\n" +
       "\"title\": {\n" +
       "\"text\": \"网站用户增长情况\",\n" +
@@ -75,6 +118,8 @@ public class AIManager {
           content = "你是一个数据分析师和前端开发专家，接下来我会按照以下固定格式给你提供内容：\n" +
                     content +
                     "请根据这两部分内容，严格按照以下指定格式生成内容（此外不要输出任何多余的开头、结尾、注释，如果最后生成的内容中包含单引号，一定要将单引号替换成空格）\n" +
+                    "请按照提供内容里的图表类型进行生成并按照模板的格式严格返回，"+
+                    "另外，雷达图的json格式，请参考这个"+radarChart+
                     "'#########'\n" +
                     "{前端 Echarts V5 的 option 配置对象json代码，json代码的键值对都一定要加上英文双引号，跟下面的示例一样。合理地将数据进行可视化，不要生成任何多余的内容，比如注释}\n" +
                     "'#########'\n" +
@@ -84,9 +129,9 @@ public class AIManager {
                     + jsonData
                     + "#########\n" +
                     "结论："
-                    + resTemplate
-                    +"请按照模板的格式严格返回";
+                    + resTemplate;
         }
+        System.out.println("星火 AI 的预设是：-----------------------content----------------------------------"+content);
         List<SparkMessage> messages = new ArrayList<>();
         messages.add(SparkMessage.userContent(content));
         // 构造请求
@@ -94,7 +139,7 @@ public class AIManager {
                 // 消息列表
                 .messages(messages)
                 // 模型回答的tokens的最大长度,非必传,取值为[1,4096],默认为2048
-                .maxTokens(2048)
+                .maxTokens(4096)
                 // 核采样阈值。用于决定结果随机性,取值越高随机性越强即相同的问题得到的不同答案的可能性越高 非必传,取值为[0,1],默认为0.5
                 .temperature(0.2)
                 // 指定请求版本

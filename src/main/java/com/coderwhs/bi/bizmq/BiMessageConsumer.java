@@ -75,7 +75,7 @@ public class BiMessageConsumer {
       handleChartUpdateError(chart.getId(), "AI 生成错误");
       return;
     }
-    String genChart = splits[1].trim();
+    String genChart = splits[1].trim().replace("```json","").replace("```","");
     System.out.println("【BiMessageConsumer】genChart = " + genChart);
     String genResult = splits[2].trim();
     System.out.println("【BiMessageConsumer】genResult = " + genResult);
